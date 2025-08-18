@@ -1,74 +1,114 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Launching Soon | Have It</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Have It - Coming Soon</title>
   <style>
-    body {
+    html, body {
+      height: 100%;
+      width: 100%;
       margin: 0;
       padding: 0;
+      font-family: "Poppins", sans-serif;
+      overflow: hidden;
+      background: #121212;
+    }
+
+    .bg-blur,
+    .main-image-container {
+      display: none;
+    }
+
+    .hero-bg {
+      position: fixed;
+      inset: 0;
+      width: 100vw;
       height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
+      background: url('have-it-back.png') center center / cover no-repeat;
+      z-index: 0;
+    }
+
+    .info-top {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      min-width: 100vw;
+      background: rgba(255, 255, 255, 0.7);
+      backdrop-filter: blur(8px);
+      border-radius: 0 0 32px 32px;
+      padding: 18px 0; /* No left/right padding */
       text-align: center;
-      font-family: 'Helvetica Neue', sans-serif;
-      background: linear-gradient(135deg, #6a11cb, #2575fc);
-      color: white;
-    }
-    .container {
-      max-width: 600px;
-    }
-    h1 {
-      font-size: 3rem;
-      margin-bottom: 10px;
-    }
-    p {
+      font-family: 'Comic Sans', cursive, sans-serif;
       font-size: 1.2rem;
-      margin-bottom: 20px;
+      font-weight: 500;
+      color: #d35400;
+      box-shadow: 0 2px 6px rgba(240, 120, 30, 0.15);
+      z-index: 2;
+      letter-spacing: 1.3px;
+      text-shadow: 1px 1px 2px rgba(211,84,0,0.5);
+      white-space: nowrap; /* Prevent line break */
+      overflow-x: auto;
+      text-overflow: ellipsis;
     }
-    .logo {
-      font-size: 2rem;
-      font-weight: bold;
-      margin-bottom: 20px;
-      letter-spacing: 2px;
-    }
-    .email-box {
-      margin-top: 20px;
-    }
-    input[type="email"] {
-      padding: 10px;
-      border: none;
-      border-radius: 5px;
-      width: 70%;
-      max-width: 300px;
-    }
-    button {
-      padding: 10px 20px;
-      margin-left: 10px;
-      border: none;
-      border-radius: 5px;
-      background-color: #fff;
-      color: #2575fc;
-      font-weight: bold;
-      cursor: pointer;
-    }
-    button:hover {
-      background-color: #f1f1f1;
+
+    /* Mobile styles: show sharp, centered image + blurred edges */
+    @media (max-width: 900px) {
+      .hero-bg {
+        display: none;
+      }
+      .bg-blur {
+        display: block;
+        position: fixed;
+        inset: 0;
+        width: 100vw;
+        height: 100vh;
+        object-fit: cover;
+        filter: blur(26px) brightness(1.08);
+        z-index: 0;
+        pointer-events: none;
+      }
+      .main-image-container {
+        display: flex;
+        position: fixed;
+        top: 0; left: 0;
+        width: 100vw; height: 100vh;
+        align-items: center;
+        justify-content: center;
+        z-index: 1;
+        pointer-events: none;
+      }
+      .main-image {
+        max-width: 100vw;
+        max-height: 100vh;
+        width: auto;
+        height: auto;
+        object-fit: contain;
+        display: block;
+        box-shadow: 0 0 60px 0 rgba(0,0,0,0.04);
+      }
+      .info-top {
+        max-width: 100vw;
+        min-width: 100vw;
+        font-size: 1rem;
+        padding: 10px 0;
+      }
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <div class="logo">HAVE IT</div>
-    <p>Because You Can</p>
-    <h1>Launching Soon 🚀</h1>
-    <p>Stay tuned for something exciting!</p>
-    <div class="email-box">
-      <input type="email" placeholder="Enter your email">
-      <button>Notify Me</button>
-    </div>
+  <!-- Desktop background image -->
+  <div class="hero-bg"></div>
+  <!-- Mobile blurred fill for borders -->
+  <img src="have-it-back.png" alt="Blurred background" class="bg-blur" />
+  <!-- Mobile centered sharp image -->
+  <div class="main-image-container">
+    <img src="have-it-back.png" alt="Launching Soon" class="main-image" />
+  </div>
+  <!-- Info block -->
+  <div class="info-top">
+    Loading something yummier than your playlist!<br>Stay Tuned🍫
   </div>
 </body>
 </html>
