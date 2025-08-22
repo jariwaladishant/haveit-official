@@ -24,20 +24,6 @@
       justify-content: center;
     }
 
-    .hero-bg {
-      position: fixed;
-      inset: 0;
-      width: 100vw;
-      height: 100vh;
-      background: linear-gradient(135deg,
-          rgba(186, 0, 255, 0.6),
-          rgba(124, 50, 212, 0.6)),
-        url('have-it-back.png') center center / cover no-repeat;
-      z-index: 0;
-      filter: brightness(0.8);
-      transition: background 0.5s ease;
-    }
-
     .info-top {
       position: fixed;
       top: 18px;
@@ -95,10 +81,6 @@
 
     /* Mobile styles: show sharp, centered image + blurred edges */
     @media (max-width: 900px) {
-      .hero-bg {
-        display: none;
-      }
-
       .bg-blur {
         display: block;
         position: fixed;
@@ -146,8 +128,6 @@
 </head>
 
 <body>
-  <!-- Desktop background image with gradient overlay -->
-  <div class="hero-bg"></div>
   <!-- Mobile blurred fill for borders -->
   <img src="have-it-back.png" alt="Blurred background" class="bg-blur" />
   <!-- Mobile centered sharp image -->
