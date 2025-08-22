@@ -5,8 +5,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Have It</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&family=Pacifico&display=swap"
-    rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&display=swap" rel="stylesheet" />
   <style>
     html,
     body {
@@ -17,70 +16,75 @@
       font-family: "Poppins", sans-serif;
       overflow: hidden;
       background: #121212;
-      color: #ba00ff;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
+    }
+
+    .bg-blur,
+    .main-image-container {
+      display: none;
+    }
+
+    .hero-bg {
+      position: fixed;
+      inset: 0;
+      width: 100vw;
+      height: 100vh;
+      background: url('have-it-back.png') center center / cover no-repeat;
+      z-index: 0;
     }
 
     .info-top {
-      position: fixed;
-      top: 18px;
-      left: 50%;
-      transform: translateX(-50%);
-      z-index: 2;
-      background: rgba(255, 255, 255, 0.12);
-      backdrop-filter: blur(12px);
-      border-radius: 24px;
-      padding: 16px 28px;
-      text-align: center;
-      font-family: "Georgia", serif;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      min-width: 100vw;
+      background: rgba(255, 255, 255, 0);
+      backdrop-filter: blur(8px);
+      border-radius: 0 0 32px 32px;
+      padding: 18px 0;
+      font-family: 'Luckiest Guy', cursive;
+      font-weight: 400;
       font-size: 1.8rem;
-      font-weight: 700;
-      letter-spacing: 1.3px;
-      box-shadow: 0 5px 15px rgba(186, 0, 255, 0.4);
-      color: #ffccff;
-      text-shadow: 1px 1px 3px rgba(124, 50, 212, 0.9);
-      user-select: none;
-      max-width: 90vw;
-      animation: fadeInDown 1.5s ease forwards;
+      text-align: center;
+      color: #ff6f00;
+      /* pop orange */
+      letter-spacing: 2px;
+
+      /* layered shadow drop */
+      text-shadow:
+        2px 2px 0 #000000,
+        4px 4px 0 #000000,
+        6px 6px 5px rgba(0, 0, 0, 0.4);
+
+      box-shadow: 0 4px 10px rgba(255, 102, 0, 0.4);
+      z-index: 2;
+      white-space: nowrap;
+      overflow-x: auto;
+      text-overflow: ellipsis;
+
+      /* continuous pulse animation */
+      animation: pulsePop 2.5s ease-in-out infinite;
+      transform-origin: center top;
     }
 
-    @keyframes fadeInDown {
-      0% {
-        opacity: 0;
-        transform: translateX(-50%) translateY(-20px);
-      }
-
-      100% {
-        opacity: 1;
-        transform: translateX(-50%) translateY(0);
-      }
-    }
-
-
-    .pulse {
-      display: inline-block;
-      animation: pulseAnim 2.5s infinite;
-    }
-
-    @keyframes pulseAnim {
+    @keyframes pulsePop {
 
       0%,
       100% {
         transform: scale(1);
-        opacity: 1;
       }
 
       50% {
-        transform: scale(1.1);
-        opacity: 0.8;
+        transform: scale(1.12);
       }
     }
 
     /* Mobile styles: show sharp, centered image + blurred edges */
     @media (max-width: 900px) {
+      .hero-bg {
+        display: none;
+      }
+
       .bg-blur {
         display: block;
         position: fixed;
@@ -115,28 +119,22 @@
         display: block;
         box-shadow: 0 0 60px 0 rgba(0, 0, 0, 0.04);
       }
-
-      .info-top {
-        max-width: 100vw;
-        min-width: 100vw;
-        font-size: 1.4rem;
-        font-weight: 700;
-        padding: 14px 0;
-      }
     }
   </style>
 </head>
 
 <body>
+  <!-- Desktop background image -->
+  <div class="hero-bg"></div>
   <!-- Mobile blurred fill for borders -->
   <img src="have-it-back.png" alt="Blurred background" class="bg-blur" />
   <!-- Mobile centered sharp image -->
   <div class="main-image-container">
     <img src="have-it-back.png" alt="Launching Soon" class="main-image" />
   </div>
-  <!-- Info block with pulse sparkle -->
+  <!-- Info block -->
   <div class="info-top">
-    <span class="pulse">Loading Something Yummier 😋<br>Stay Tuned 🍫</span>
+    Loading Something Yummier 😋<br>Stay Tuned 🍫
   </div>
 </body>
 
