@@ -5,6 +5,8 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Have It</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&family=Pacifico&display=swap"
+    rel="stylesheet" />
   <style>
     html,
     body {
@@ -15,11 +17,11 @@
       font-family: "Poppins", sans-serif;
       overflow: hidden;
       background: #121212;
-    }
-
-    .bg-blur,
-    .main-image-container {
-      display: none;
+      color: #ba00ff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
     }
 
     .hero-bg {
@@ -27,34 +29,69 @@
       inset: 0;
       width: 100vw;
       height: 100vh;
-      background: url('have-it-back.png') center center / cover no-repeat;
+      background: linear-gradient(135deg,
+          rgba(186, 0, 255, 0.6),
+          rgba(124, 50, 212, 0.6)),
+        url('have-it-back.png') center center / cover no-repeat;
       z-index: 0;
+      filter: brightness(0.8);
+      transition: background 0.5s ease;
     }
 
     .info-top {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      min-width: 100vw;
-      background: rgba(255, 255, 255, 0.7);
-      backdrop-filter: blur(8px);
-      border-radius: 0 0 32px 32px;
-      padding: 18px 0;
-      text-align: center;
-      font-family: Georgia, serif;
-      color: #ba00ff;
-      /* purple */
-      box-shadow: 0 2px 6px rgba(240, 120, 30, 0.15);
+      position: fixed;
+      top: 18px;
+      left: 50%;
+      transform: translateX(-50%);
       z-index: 2;
+      background: rgba(255, 255, 255, 0.12);
+      backdrop-filter: blur(12px);
+      border-radius: 24px;
+      padding: 16px 28px;
+      text-align: center;
+      font-family: "Georgia", serif;
+      font-size: 1.8rem;
+      font-weight: 700;
       letter-spacing: 1.3px;
-      text-shadow: 1px 1px 2px rgba(124, 50, 212, 0.2);
-      /* subtle purple shadow */
-      white-space: nowrap;
-      overflow-x: auto;
-      text-overflow: ellipsis;
+      box-shadow: 0 5px 15px rgba(186, 0, 255, 0.4);
+      color: #ffccff;
+      text-shadow: 1px 1px 3px rgba(124, 50, 212, 0.9);
+      user-select: none;
+      max-width: 90vw;
+      animation: fadeInDown 1.5s ease forwards;
     }
 
+    @keyframes fadeInDown {
+      0% {
+        opacity: 0;
+        transform: translateX(-50%) translateY(-20px);
+      }
+
+      100% {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0);
+      }
+    }
+
+
+    .pulse {
+      display: inline-block;
+      animation: pulseAnim 2.5s infinite;
+    }
+
+    @keyframes pulseAnim {
+
+      0%,
+      100% {
+        transform: scale(1);
+        opacity: 1;
+      }
+
+      50% {
+        transform: scale(1.1);
+        opacity: 0.8;
+      }
+    }
 
     /* Mobile styles: show sharp, centered image + blurred edges */
     @media (max-width: 900px) {
@@ -100,16 +137,16 @@
       .info-top {
         max-width: 100vw;
         min-width: 100vw;
-        font-size: 1.2rem;
-        font-weight: bolder;
-        padding: 10px 0;
+        font-size: 1.4rem;
+        font-weight: 700;
+        padding: 14px 0;
       }
     }
   </style>
 </head>
 
 <body>
-  <!-- Desktop background image -->
+  <!-- Desktop background image with gradient overlay -->
   <div class="hero-bg"></div>
   <!-- Mobile blurred fill for borders -->
   <img src="have-it-back.png" alt="Blurred background" class="bg-blur" />
@@ -117,9 +154,9 @@
   <div class="main-image-container">
     <img src="have-it-back.png" alt="Launching Soon" class="main-image" />
   </div>
-  <!-- Info block -->
+  <!-- Info block with pulse sparkle -->
   <div class="info-top">
-    Loading Something Yummier 😋<br>Stay Tuned 🍫
+    <span class="pulse">Loading Something Yummier 😋<br>Stay Tuned 🍫</span>
   </div>
 </body>
 
