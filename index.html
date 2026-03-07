@@ -1,141 +1,1277 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Have It</title>
-  <link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&display=swap" rel="stylesheet" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Have It • Premium Food Experience</title>
+  
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  
+  <!-- Font Awesome 6 -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  
   <style>
-    html,
-    body {
-      height: 100%;
-      width: 100%;
+    /* Reset & Variables */
+    * {
       margin: 0;
       padding: 0;
-      font-family: "Poppins", sans-serif;
-      overflow: hidden;
-      background: #121212;
+      box-sizing: border-box;
     }
 
-    .bg-blur,
-    .main-image-container {
-      display: none;
+    :root {
+      --primary: #ff8114;
+      --primary-dark: #e56e00;
+      --primary-light: #ffa454;
+      --dark: #0a0a0a;
+      --dark-light: #1a1a1a;
+      --text: #ffffff;
+      --text-muted: rgba(255, 255, 255, 0.7);
+      --gradient: linear-gradient(135deg, var(--primary), #ffb347);
+      --shadow: 0 20px 40px -10px rgba(255, 129, 20, 0.3);
+      --shadow-strong: 0 30px 60px -10px rgba(255, 129, 20, 0.5);
     }
 
-    .hero-bg {
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: var(--dark);
+      color: var(--text);
+      overflow-x: hidden;
+    }
+
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar {
+      width: 10px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: var(--dark-light);
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: var(--primary);
+      border-radius: 5px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: var(--primary-dark);
+    }
+
+    /* Background with Parallax */
+    .parallax-bg {
       position: fixed;
-      inset: 0;
-      width: 100vw;
-      height: 100vh;
-      background: url('have-it-back.png') center center / cover no-repeat;
-      z-index: 0;
+      top: -20px;
+      left: -20px;
+      right: -20px;
+      bottom: -20px;
+      background: url('have-it-back.png') center center / cover no-repeat fixed;
+      filter: brightness(0.25) blur(8px);
+      z-index: -2;
+      animation: slowZoom 30s infinite alternate;
     }
 
-    .info-top {
+    @keyframes slowZoom {
+      0% { transform: scale(1); }
+      100% { transform: scale(1.1); }
+    }
+
+    /* Animated Gradient Overlay */
+    .gradient-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle at 30% 50%, rgba(255, 129, 20, 0.15), transparent 60%),
+                  radial-gradient(circle at 70% 80%, rgba(255, 129, 20, 0.1), transparent 60%);
+      z-index: -1;
+      animation: overlayMove 15s infinite alternate;
+    }
+
+    @keyframes overlayMove {
+      0% { opacity: 0.5; transform: scale(1); }
+      100% { opacity: 1; transform: scale(1.2); }
+    }
+
+    /* Floating Particles */
+    .particles {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      pointer-events: none;
+    }
+
+    .particle {
+      position: absolute;
+      background: var(--primary);
+      border-radius: 50%;
+      opacity: 0.2;
+      animation: floatParticle linear infinite;
+    }
+
+    @keyframes floatParticle {
+      from {
+        transform: translateY(100vh) rotate(0deg);
+      }
+      to {
+        transform: translateY(-100px) rotate(360deg);
+      }
+    }
+
+    /* Main Container */
+    .container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 40px;
+      position: relative;
+      z-index: 10;
+    }
+
+    /* Navigation */
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 30px 0;
+      position: relative;
+    }
+
+    .logo-wrapper {
+      perspective: 1000px;
+    }
+
+    .logo {
+      font-family: 'Luckiest Guy', cursive;
+      font-size: 3rem;
+      color: var(--primary);
+      text-shadow: 
+        4px 4px 0 #000,
+        8px 8px 0 rgba(0, 0, 0, 0.5),
+        12px 12px 20px rgba(0, 0, 0, 0.4);
+      letter-spacing: 2px;
+      transition: all 0.3s ease;
+      display: inline-block;
+      animation: logoFloat 3s ease-in-out infinite;
+    }
+
+    @keyframes logoFloat {
+      0%, 100% { transform: translateY(0) rotate(0deg); }
+      50% { transform: translateY(-5px) rotate(1deg); }
+    }
+
+    .logo:hover {
+      transform: scale(1.1) rotate(-2deg);
+      text-shadow: 
+        4px 4px 0 #000,
+        8px 8px 0 rgba(0, 0, 0, 0.5),
+        15px 15px 30px var(--primary);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 40px;
+      align-items: center;
+    }
+
+    .nav-link {
+      color: var(--text);
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 1.1rem;
+      position: relative;
+      padding: 8px 0;
+      transition: color 0.3s;
+      overflow: hidden;
+    }
+
+    .nav-link::before {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: -100%;
+      width: 100%;
+      height: 2px;
+      background: var(--gradient);
+      transition: left 0.3s ease;
+    }
+
+    .nav-link:hover {
+      color: var(--primary);
+    }
+
+    .nav-link:hover::before {
+      left: 0;
+    }
+
+    /* Hero Section */
+    .hero {
+      min-height: calc(100vh - 120px);
+      display: flex;
+      align-items: center;
+      gap: 60px;
+      padding: 40px 0;
+    }
+
+    .hero-content {
+      flex: 1.2;
+    }
+
+    .floating-badge {
+      display: inline-block;
+      background: rgba(255, 129, 20, 0.2);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 129, 20, 0.3);
+      padding: 10px 25px;
+      border-radius: 50px;
+      margin-bottom: 30px;
+      font-weight: 500;
+      color: var(--primary);
+      letter-spacing: 2px;
+      animation: badgeGlow 2s infinite;
+    }
+
+    @keyframes badgeGlow {
+      0%, 100% { box-shadow: 0 0 20px rgba(255, 129, 20, 0.3); }
+      50% { box-shadow: 0 0 40px rgba(255, 129, 20, 0.6); }
+    }
+
+    .hero-title {
+      font-size: 5rem;
+      font-weight: 800;
+      line-height: 1.1;
+      margin-bottom: 20px;
+    }
+
+    .hero-title-line {
+      display: block;
+      overflow: hidden;
+      height: 1.2em;
+    }
+
+    .hero-title-line span {
+      display: block;
+      animation: slideUp 0.8s ease forwards;
+      opacity: 0;
+      transform: translateY(100%);
+    }
+
+    .hero-title-line:nth-child(1) span { animation-delay: 0.2s; }
+    .hero-title-line:nth-child(2) span { animation-delay: 0.4s; }
+    .hero-title-line:nth-child(3) span { 
+      animation-delay: 0.6s;
+      color: var(--primary);
+      font-family: 'Luckiest Guy', cursive;
+      font-size: 6rem;
+    }
+
+    @keyframes slideUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .hero-description {
+      font-size: 1.2rem;
+      color: var(--text-muted);
+      margin: 30px 0;
+      max-width: 600px;
+      line-height: 1.8;
+      animation: fadeIn 1s ease 0.8s forwards;
+      opacity: 0;
+    }
+
+    @keyframes fadeIn {
+      to { opacity: 1; }
+    }
+
+    /* Countdown Timer */
+    .countdown-wrapper {
+      background: rgba(255, 255, 255, 0.03);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 129, 20, 0.2);
+      border-radius: 30px;
+      padding: 30px;
+      margin: 40px 0;
+      animation: fadeInUp 1s ease 1s forwards;
+      opacity: 0;
+      transform: translateY(30px);
+    }
+
+    @keyframes fadeInUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .countdown-label {
+      font-size: 1rem;
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      color: var(--text-muted);
+      margin-bottom: 20px;
+    }
+
+    .countdown {
+      display: flex;
+      gap: 30px;
+      flex-wrap: wrap;
+    }
+
+    .countdown-item {
+      text-align: center;
+      min-width: 100px;
+      position: relative;
+    }
+
+    .countdown-item:not(:last-child)::after {
+      content: ':';
+      position: absolute;
+      right: -20px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 3rem;
+      color: var(--primary);
+      opacity: 0.5;
+    }
+
+    .countdown-number {
+      font-size: 4rem;
+      font-weight: 800;
+      color: var(--primary);
+      line-height: 1;
+      text-shadow: 3px 3px 0 #000;
+      background: linear-gradient(135deg, rgba(255, 129, 20, 0.1), rgba(255, 129, 20, 0.05));
+      padding: 20px 15px;
+      border-radius: 20px;
+      border: 1px solid rgba(255, 129, 20, 0.3);
+      box-shadow: 0 20px 30px -10px rgba(0, 0, 0, 0.5);
+      transition: all 0.3s ease;
+    }
+
+    .countdown-item:hover .countdown-number {
+      transform: scale(1.1);
+      background: linear-gradient(135deg, rgba(255, 129, 20, 0.2), rgba(255, 129, 20, 0.1));
+      border-color: var(--primary);
+    }
+
+    .countdown-label-text {
+      margin-top: 15px;
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+
+    /* CTA Buttons */
+    .cta-group {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+      animation: fadeIn 1s ease 1.2s forwards;
+      opacity: 0;
+    }
+
+    .btn {
+      padding: 18px 45px;
+      border-radius: 50px;
+      font-weight: 600;
+      font-size: 1.1rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      cursor: pointer;
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      border: none;
+      text-decoration: none;
+      display: inline-block;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .btn::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 0;
+      height: 0;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.3);
+      transform: translate(-50%, -50%);
+      transition: width 0.6s, height 0.6s;
+    }
+
+    .btn:hover::before {
+      width: 300px;
+      height: 300px;
+    }
+
+    .btn-primary {
+      background: var(--gradient);
+      color: var(--dark);
+      box-shadow: var(--shadow);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-5px) scale(1.05);
+      box-shadow: var(--shadow-strong);
+    }
+
+    .btn-secondary {
+      background: transparent;
+      color: var(--text);
+      border: 2px solid var(--primary);
+      position: relative;
+      z-index: 1;
+    }
+
+    .btn-secondary::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: var(--gradient);
+      transition: left 0.4s;
+      z-index: -1;
+    }
+
+    .btn-secondary:hover {
+      color: var(--dark);
+      border-color: transparent;
+    }
+
+    .btn-secondary:hover::after {
+      left: 0;
+    }
+
+    /* Hero Visual */
+    .hero-visual {
+      flex: 1;
+      position: relative;
+    }
+
+    .image-wrapper {
+      position: relative;
+      animation: floatIn 1.5s ease 0.5s forwards;
+      opacity: 0;
+      transform: translateX(50px);
+    }
+
+    @keyframes floatIn {
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    .main-food-image {
+      width: 100%;
+      height: auto;
+      border-radius: 40px;
+      box-shadow: var(--shadow-strong);
+      transition: all 0.5s ease;
+      animation: gentleFloat 4s ease-in-out infinite;
+    }
+
+    @keyframes gentleFloat {
+      0%, 100% { transform: translateY(0) rotate(2deg); }
+      50% { transform: translateY(-20px) rotate(0deg); }
+    }
+
+    .main-food-image:hover {
+      transform: scale(1.02) rotate(1deg);
+      box-shadow: 0 40px 80px -10px var(--primary);
+    }
+
+    /* Floating Cards */
+    .floating-card {
+      position: absolute;
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 129, 20, 0.3);
+      border-radius: 20px;
+      padding: 15px 25px;
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      animation: cardFloat 3s ease-in-out infinite;
+    }
+
+    .floating-card i {
+      font-size: 2rem;
+      color: var(--primary);
+    }
+
+    .floating-card span {
+      font-weight: 600;
+      font-size: 1.1rem;
+    }
+
+    .card-1 {
+      top: -30px;
+      right: -30px;
+      animation-delay: 0s;
+    }
+
+    .card-2 {
+      bottom: -30px;
+      left: -30px;
+      animation-delay: 0.5s;
+    }
+
+    @keyframes cardFloat {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+
+    /* Taste Features Section */
+    .features-section {
+      padding: 100px 0;
+      background: linear-gradient(to top, transparent, rgba(255, 129, 20, 0.05));
+    }
+
+    .section-title {
+      text-align: center;
+      margin-bottom: 60px;
+    }
+
+    .section-title h2 {
+      font-size: 3.5rem;
+      font-weight: 700;
+      margin-bottom: 20px;
+    }
+
+    .section-title h2 span {
+      color: var(--primary);
+      font-family: 'Luckiest Guy', cursive;
+    }
+
+    .section-title p {
+      color: var(--text-muted);
+      font-size: 1.2rem;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 30px;
+      margin-top: 50px;
+    }
+
+    .feature-card {
+      background: rgba(255, 255, 255, 0.03);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 129, 20, 0.1);
+      border-radius: 30px;
+      padding: 40px 30px;
+      text-align: center;
+      transition: all 0.4s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .feature-card::before {
+      content: '';
       position: absolute;
       top: 0;
       left: 0;
-      width: 100vw;
-      min-width: 100vw;
-      background: rgba(255, 255, 255, 0);
-      backdrop-filter: blur(8px);
-      border-radius: 0 0 32px 32px;
-      padding: 18px 0;
-      font-family: 'Luckiest Guy', cursive;
-      font-weight: 400;
-      font-size: 1.4rem;
+      right: 0;
+      height: 3px;
+      background: var(--gradient);
+      transform: scaleX(0);
+      transition: transform 0.4s ease;
+    }
+
+    .feature-card:hover {
+      transform: translateY(-10px);
+      border-color: var(--primary);
+      box-shadow: var(--shadow);
+    }
+
+    .feature-card:hover::before {
+      transform: scaleX(1);
+    }
+
+    .feature-icon {
+      width: 80px;
+      height: 80px;
+      background: var(--gradient);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 25px;
+      font-size: 2rem;
+      color: var(--dark);
+      transition: all 0.4s ease;
+    }
+
+    .feature-card:hover .feature-icon {
+      transform: rotate(360deg) scale(1.1);
+    }
+
+    .feature-card h3 {
+      font-size: 1.5rem;
+      margin-bottom: 15px;
+    }
+
+    .feature-card p {
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+
+    /* Newsletter Section */
+    .newsletter-section {
+      padding: 80px 0;
       text-align: center;
-      color: #ff8114;
-      letter-spacing: 2px;
+      position: relative;
+    }
 
-      /* layered shadow drop */
-      text-shadow:
-        2px 2px 0 #000000,
-        4px 4px 0 #000000,
-        6px 6px 5px rgba(0, 0, 0, 0.4);
+    .newsletter-wrapper {
+      background: rgba(255, 129, 20, 0.05);
+      border: 1px solid rgba(255, 129, 20, 0.2);
+      border-radius: 60px;
+      padding: 60px;
+      max-width: 800px;
+      margin: 0 auto;
+      backdrop-filter: blur(20px);
+    }
 
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
-      z-index: 2;
+    .newsletter-wrapper h3 {
+      font-size: 2rem;
+      margin-bottom: 20px;
+    }
+
+    .newsletter-wrapper p {
+      color: var(--text-muted);
+      margin-bottom: 40px;
+    }
+
+    .newsletter-form {
+      display: flex;
+      gap: 15px;
+      max-width: 500px;
+      margin: 0 auto;
+    }
+
+    .newsletter-input {
+      flex: 1;
+      padding: 18px 25px;
+      border-radius: 50px;
+      border: 2px solid rgba(255, 129, 20, 0.3);
+      background: rgba(255, 255, 255, 0.05);
+      color: var(--text);
+      font-size: 1rem;
+      transition: all 0.3s ease;
+    }
+
+    .newsletter-input:focus {
+      outline: none;
+      border-color: var(--primary);
+      background: rgba(255, 255, 255, 0.1);
+      box-shadow: 0 0 30px rgba(255, 129, 20, 0.3);
+    }
+
+    .newsletter-input::placeholder {
+      color: rgba(255, 255, 255, 0.4);
+    }
+
+    .newsletter-btn {
+      padding: 18px 35px;
+      border-radius: 50px;
+      background: var(--gradient);
+      color: var(--dark);
+      font-weight: 600;
+      border: none;
+      cursor: pointer;
+      transition: all 0.3s ease;
       white-space: nowrap;
-      overflow-x: auto;
-      text-overflow: ellipsis;
-
-      /* continuous pulse animation */
-      animation: pulsePop 2.5s ease-in-out infinite;
-      transform-origin: center top;
     }
 
-    @keyframes pulsePop {
+    .newsletter-btn:hover {
+      transform: scale(1.05);
+      box-shadow: var(--shadow);
+    }
 
-      0%,
-      100% {
-        transform: scale(1);
+    /* Footer */
+    footer {
+      padding: 50px 0 30px;
+      border-top: 1px solid rgba(255, 129, 20, 0.2);
+      margin-top: 50px;
+    }
+
+    .footer-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 30px;
+      margin-bottom: 40px;
+    }
+
+    .footer-logo {
+      font-family: 'Luckiest Guy', cursive;
+      font-size: 2rem;
+      color: var(--primary);
+      text-shadow: 2px 2px 0 #000;
+    }
+
+    .social-links {
+      display: flex;
+      gap: 20px;
+    }
+
+    .social-link {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background: rgba(255, 129, 20, 0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text);
+      font-size: 1.5rem;
+      transition: all 0.3s ease;
+      text-decoration: none;
+      border: 1px solid transparent;
+    }
+
+    .social-link:hover {
+      background: var(--primary);
+      color: var(--dark);
+      transform: translateY(-5px) rotate(360deg);
+      border-color: var(--primary);
+    }
+
+    .footer-bottom {
+      text-align: center;
+      padding-top: 30px;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      color: var(--text-muted);
+      font-size: 0.9rem;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 1200px) {
+      .hero-title {
+        font-size: 4rem;
       }
-
-      50% {
-        transform: scale(1.12);
+      .hero-title-line:nth-child(3) span {
+        font-size: 5rem;
       }
     }
 
-    /* Mobile styles: show sharp, centered image + blurred edges */
-    @media (max-width: 900px) {
-      .hero-bg {
+    @media (max-width: 992px) {
+      .hero {
+        flex-direction: column;
+        text-align: center;
+        gap: 40px;
+      }
+
+      .hero-content {
+        width: 100%;
+      }
+
+      .hero-description {
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      .cta-group {
+        justify-content: center;
+      }
+
+      .countdown {
+        justify-content: center;
+      }
+
+      .floating-card {
         display: none;
       }
 
-      .bg-blur {
-        display: block;
-        position: fixed;
-        inset: 0;
-        width: 100vw;
-        height: 100vh;
-        object-fit: cover;
-        filter: blur(26px) brightness(1.08);
-        z-index: 0;
-        pointer-events: none;
+      nav {
+        flex-direction: column;
+        gap: 20px;
       }
 
-      .main-image-container {
-        font-size: 1.5rem;
+      .nav-links {
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .container {
+        padding: 0 20px;
+      }
+
+      .hero-title {
+        font-size: 3rem;
+      }
+      .hero-title-line:nth-child(3) span {
+        font-size: 4rem;
+      }
+
+      .countdown-item {
+        min-width: 70px;
+      }
+
+      .countdown-number {
+        font-size: 2.5rem;
+        padding: 15px 10px;
+      }
+
+      .newsletter-wrapper {
+        padding: 40px 20px;
+      }
+
+      .newsletter-form {
+        flex-direction: column;
+      }
+
+      .section-title h2 {
+        font-size: 2.5rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .hero-title {
+        font-size: 2.2rem;
+      }
+      .hero-title-line:nth-child(3) span {
+        font-size: 3rem;
+      }
+
+      .countdown {
+        gap: 15px;
+      }
+
+      .countdown-item {
+        min-width: 60px;
+      }
+
+      .countdown-number {
+        font-size: 2rem;
+        padding: 10px 8px;
+      }
+
+      .btn {
+        padding: 15px 30px;
+        font-size: 1rem;
+      }
+
+      .footer-content {
+        flex-direction: column;
+        text-align: center;
+      }
+    }
+
+    /* Loading Animation */
+    .loading-bar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 3px;
+      background: var(--gradient);
+      transform: scaleX(0);
+      transform-origin: left;
+      animation: loadPage 1.5s ease-out;
+      z-index: 9999;
+    }
+
+    @keyframes loadPage {
+      0% { transform: scaleX(0); }
+      50% { transform: scaleX(1); }
+      100% { transform: scaleX(0); }
+    }
+
+    /* Mobile Menu Toggle */
+    .menu-toggle {
+      display: none;
+      flex-direction: column;
+      gap: 6px;
+      cursor: pointer;
+      z-index: 100;
+    }
+
+    .menu-toggle span {
+      width: 30px;
+      height: 3px;
+      background: var(--primary);
+      transition: all 0.3s ease;
+    }
+
+    @media (max-width: 768px) {
+      .menu-toggle {
         display: flex;
+      }
+
+      .nav-links {
         position: fixed;
         top: 0;
-        left: 0;
-        width: 100vw;
+        right: -100%;
+        width: 80%;
+        max-width: 400px;
         height: 100vh;
-        align-items: center;
+        background: rgba(10, 10, 10, 0.95);
+        backdrop-filter: blur(20px);
+        flex-direction: column;
         justify-content: center;
-        z-index: 1;
-        pointer-events: none;
+        transition: right 0.3s ease;
+        z-index: 99;
       }
 
-      .main-image {
-        max-width: 100vw;
-        max-height: 100vh;
-        width: auto;
-        height: auto;
-        object-fit: contain;
-        display: block;
-        box-shadow: 0 0 60px 0 rgba(0, 0, 0, 0.04);
+      .nav-links.active {
+        right: 0;
+      }
+
+      .menu-toggle.active span:nth-child(1) {
+        transform: rotate(45deg) translate(8px, 8px);
+      }
+
+      .menu-toggle.active span:nth-child(2) {
+        opacity: 0;
+      }
+
+      .menu-toggle.active span:nth-child(3) {
+        transform: rotate(-45deg) translate(7px, -7px);
       }
     }
   </style>
 </head>
-
 <body>
-  <!-- Desktop background image -->
-  <div class="hero-bg"></div>
-  <!-- Mobile blurred fill for borders -->
-  <img src="have-it-back.png" alt="Blurred background" class="bg-blur" />
-  <!-- Mobile centered sharp image -->
-  <div class="main-image-container">
-    <img src="have-it-back.png" alt="Launching Soon" class="main-image" />
-  </div>
-  <!-- Info block -->
-  <div class="info-top">
-    Loading Something Yummy 😋<br>Stay Tuned 🍫
-  </div>
-</body>
+  <!-- Loading Animation -->
+  <div class="loading-bar"></div>
 
+  <!-- Background Elements -->
+  <div class="parallax-bg"></div>
+  <div class="gradient-overlay"></div>
+  
+  <!-- Particles -->
+  <div class="particles" id="particles"></div>
+
+  <!-- Main Container -->
+  <div class="container">
+    <!-- Navigation -->
+    <nav>
+      <div class="logo-wrapper">
+        <div class="logo">HAVE IT</div>
+      </div>
+      
+      <div class="menu-toggle" onclick="toggleMenu()">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+
+      <div class="nav-links" id="navLinks">
+        <a href="#" class="nav-link">Home</a>
+        <a href="#features" class="nav-link">Taste</a>
+        <a href="#about" class="nav-link">Story</a>
+        <a href="#newsletter" class="nav-link">Updates</a>
+      </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+      <div class="hero-content">
+        <div class="floating-badge">
+          <i class="fas fa-star"></i> COMING SOON
+        </div>
+        
+        <h1 class="hero-title">
+          <span class="hero-title-line"><span>Something</span></span>
+          <span class="hero-title-line"><span>Delicious is</span></span>
+          <span class="hero-title-line"><span>HAVE IT</span></span>
+        </h1>
+        
+        <p class="hero-description">
+          Get ready for a revolutionary food experience that will tantalize your taste buds 
+          and leave you craving for more. We're crafting something extraordinary just for you.
+        </p>
+
+        <!-- Countdown Timer -->
+        <div class="countdown-wrapper">
+          <div class="countdown-label">
+            <i class="far fa-clock"></i> LAUNCHING IN
+          </div>
+          <div class="countdown" id="countdown">
+            <div class="countdown-item">
+              <div class="countdown-number" id="days">30</div>
+              <div class="countdown-label-text">Days</div>
+            </div>
+            <div class="countdown-item">
+              <div class="countdown-number" id="hours">12</div>
+              <div class="countdown-label-text">Hours</div>
+            </div>
+            <div class="countdown-item">
+              <div class="countdown-number" id="minutes">45</div>
+              <div class="countdown-label-text">Minutes</div>
+            </div>
+            <div class="countdown-item">
+              <div class="countdown-number" id="seconds">30</div>
+              <div class="countdown-label-text">Seconds</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- CTA Buttons -->
+        <div class="cta-group">
+          <button class="btn btn-primary" onclick="notifyMe()">
+            <i class="fas fa-bell"></i> NOTIFY ME
+          </button>
+          <button class="btn btn-secondary" onclick="learnMore()">
+            <i class="fas fa-chevron-right"></i> LEARN MORE
+          </button>
+        </div>
+      </div>
+
+      <div class="hero-visual">
+        <div class="image-wrapper">
+          <img src="have-it-back.png" alt="Have It Food" class="main-food-image">
+          
+          <!-- Floating Cards -->
+          <div class="floating-card card-1">
+            <i class="fas fa-utensils"></i>
+            <span>Premium Quality</span>
+          </div>
+          <div class="floating-card card-2">
+            <i class="fas fa-leaf"></i>
+            <span>Fresh Ingredients</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features-section" id="features">
+      <div class="section-title">
+        <h2>Why You'll <span>Love It</span></h2>
+        <p>Every detail crafted to perfection for an unforgettable experience</p>
+      </div>
+
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i class="fas fa-crown"></i>
+          </div>
+          <h3>Premium Taste</h3>
+          <p>Exquisite flavors crafted by master chefs using the finest ingredients</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i class="fas fa-heart"></i>
+          </div>
+          <h3>Made with Love</h3>
+          <p>Every recipe is prepared with passion and attention to detail</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i class="fas fa-truck"></i>
+          </div>
+          <h3>Fast Delivery</h3>
+          <p>Quick and careful delivery right to your doorstep</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i class="fas fa-certificate"></i>
+          </div>
+          <h3>Quality Assured</h3>
+          <p>100% freshness guarantee with every order</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Newsletter Section -->
+    <section class="newsletter-section" id="newsletter">
+      <div class="newsletter-wrapper">
+        <h3>Be the First to Know</h3>
+        <p>Subscribe to get exclusive updates and early access offers</p>
+        
+        <form class="newsletter-form" onsubmit="event.preventDefault(); subscribeNewsletter()">
+          <input type="email" class="newsletter-input" placeholder="Enter your email" required>
+          <button type="submit" class="newsletter-btn">
+            <i class="fas fa-paper-plane"></i> Subscribe
+          </button>
+        </form>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+      <div class="footer-content">
+        <div class="footer-logo">HAVE IT</div>
+        <div class="social-links">
+          <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+          <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+          <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+          <a href="#" class="social-link"><i class="fab fa-tiktok"></i></a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2024 HAVE IT. All rights reserved. | Crafted with <i class="fas fa-heart" style="color: #ff8114;"></i> for food lovers</p>
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    // Generate Particles
+    function createParticles() {
+      const particlesContainer = document.getElementById('particles');
+      for (let i = 0; i < 50; i++) {
+        const particle = document.createElement('div');
+        particle.className = 'particle';
+        const size = Math.random() * 8 + 2;
+        particle.style.width = size + 'px';
+        particle.style.height = size + 'px';
+        particle.style.left = Math.random() * 100 + '%';
+        particle.style.animationDuration = (Math.random() * 10 + 10) + 's';
+        particle.style.animationDelay = Math.random() * 5 + 's';
+        particle.style.background = `rgba(255, 129, 20, ${Math.random() * 0.3})`;
+        particlesContainer.appendChild(particle);
+      }
+    }
+
+    // Countdown Timer
+    function updateCountdown() {
+      const launchDate = new Date();
+      launchDate.setDate(launchDate.getDate() + 30); // Set launch 30 days from now
+      
+      function updateTimer() {
+        const now = new Date().getTime();
+        const distance = launchDate - now;
+
+        const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+        document.getElementById('days').textContent = String(days).padStart(2, '0');
+        document.getElementById('hours').textContent = String(hours).padStart(2, '0');
+        document.getElementById('minutes').textContent = String(minutes).padStart(2, '0');
+        document.getElementById('seconds').textContent = String(seconds).padStart(2, '0');
+      }
+
+      updateTimer();
+      setInterval(updateTimer, 1000);
+    }
+
+    // Mobile Menu Toggle
+    function toggleMenu() {
+      const navLinks = document.getElementById('navLinks');
+      const menuToggle = document.querySelector('.menu-toggle');
+      navLinks.classList.toggle('active');
+      menuToggle.classList.toggle('active');
+    }
+
+    // Close menu when clicking outside
+    document.addEventListener('click', function(event) {
+      const navLinks = document.getElementById('navLinks');
+      const menuToggle = document.querySelector('.menu-toggle');
+      
+      if (!navLinks.contains(event.target) && !menuToggle.contains(event.target)) {
+        navLinks.classList.remove('active');
+        menuToggle.classList.remove('active');
+      }
+    });
+
+    // Smooth scroll for navigation links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+          });
+          // Close mobile menu after clicking
+          document.getElementById('navLinks').classList.remove('active');
+          document.querySelector('.menu-toggle').classList.remove('active');
+        }
+      });
+    });
+
+    // Notification function
+    function notifyMe() {
+      alert('Thanks for your interest! We\'ll notify you when we launch. 🎉');
+    }
+
+    // Learn more function
+    function learnMore() {
+      document.getElementById('features').scrollIntoView({ behavior: 'smooth' });
+    }
+
+    // Newsletter subscription
+    function subscribeNewsletter() {
+      const email = document.querySelector('.newsletter-input').value;
+      if (email) {
+        alert(`Thanks for subscribing! We'll send updates to ${email} ✉️`);
+        document.querySelector('.newsletter-input').value = '';
+      }
+    }
+
+    // Add animation on scroll
+    function checkScroll() {
+      const elements = document.querySelectorAll('.feature-card, .section-title');
+      elements.forEach(element => {
+        const position = element.getBoundingClientRect();
+        if (position.top < window.innerHeight - 100) {
+          element.style.opacity = '1';
+          element.style.transform = 'translateY(0)';
+        }
+      });
+    }
+
+    // Initialize animations
+    window.addEventListener('load', () => {
+      createParticles();
+      updateCountdown();
+      
+      // Set initial styles for scroll animations
+      document.querySelectorAll('.feature-card').forEach(card => {
+        card.style.opacity = '0';
+        card.style.transform = 'translateY(30px)';
+        card.style.transition = 'all 0.6s ease';
+      });
+      
+      document.querySelectorAll('.section-title').forEach(title => {
+        title.style.opacity = '0';
+        title.style.transform = 'translateY(30px)';
+        title.style.transition = 'all 0.6s ease';
+      });
+      
+      checkScroll();
+    });
+
+    window.addEventListener('scroll', checkScroll);
+
+    // Add hover effect for navigation links
+    document.querySelectorAll('.nav-link').forEach(link => {
+      link.addEventListener('mouseenter', function() {
+        this.style.transform = 'scale(1.1)';
+      });
+      link.addEventListener('mouseleave', function() {
+        this.style.transform = 'scale(1)';
+      });
+    });
+  </script>
+</body>
 </html>
