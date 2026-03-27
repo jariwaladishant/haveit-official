@@ -34,6 +34,62 @@
   <!-- Manifest for PWA -->
   <link rel="manifest" href="manifest.json">
 
+  <!-- Google Analytics 4 -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-XXXXXXXXXX'); // Replace with your actual GA4 Measurement ID
+  </script>
+
+  <!-- Meta Pixel Code -->
+  <script>
+    !function(f,b,e,v,n,t,s)
+    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+    n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];
+    s.parentNode.insertBefore(t,s)}(window, document,'script',
+    'https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', 'YOUR_PIXEL_ID'); // Replace with your Meta Pixel ID
+    fbq('track', 'PageView');
+  </script>
+  <noscript><img height="1" width="1" style="display:none"
+    src="https://www.facebook.com/tr?id=YOUR_PIXEL_ID&ev=PageView&noscript=1"
+  /></noscript>
+  <!-- End Meta Pixel Code -->
+
+  <!-- JSON-LD Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "HAVE IT",
+    "url": "https://haveitofficial.com",
+    "logo": "https://haveitofficial.com/images/icon-512.png",
+    "description": "Premium food experience - Coming soon with a revolutionary taste journey",
+    "sameAs": [
+      "https://www.instagram.com/haveitofficial"
+    ],
+    "contactPoint": {
+      "@type": "ContactPoint",
+      "contactType": "Customer Service",
+      "availableLanguage": "English"
+    }
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "HAVE IT",
+    "url": "https://haveitofficial.com",
+    "description": "Premium Food Experience - Something delicious is coming soon!"
+  }
+  </script>
+
   <!-- Fonts -->
   <link
     href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&family=Poppins:wght@300;400;500;600;700;800&display=swap"
@@ -81,7 +137,8 @@
         <a href="#features" class="nav-link">Taste</a>
         <a href="#story" class="nav-link">Story</a>
         <a href="#gallery" class="nav-link">Gallery</a>
-        <a href="#newsletter" class="nav-link">Updates</a>
+        <a href="#faq" class="nav-link">FAQ</a>
+        <a href="#contact" class="nav-link">Contact</a>
       </div>
     </nav>
 
@@ -154,7 +211,10 @@
 
       <div class="hero-visual" data-aos="fade-left" data-aos-delay="300">
         <div class="image-wrapper">
-          <img src="images/have-it-back.png" alt="Have It Food" class="main-food-image">
+          <picture>
+            <source srcset="images/have-it-back.webp" type="image/webp">
+            <img src="images/have-it-back.png" alt="Have It Food" class="main-food-image" loading="eager">
+          </picture>
 
           <!-- Floating Cards (Desktop only) -->
           <div class="floating-card card-1">
@@ -207,6 +267,70 @@
           </div>
           <h3>Quality Assured</h3>
           <p>100% freshness guarantee</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="testimonials-section" id="testimonials">
+      <div class="section-title" data-aos="fade-up">
+        <h2>What People <span>Say</span></h2>
+        <p>Early testers love what we're creating</p>
+      </div>
+
+      <div class="testimonials-grid">
+        <div class="testimonial-card" data-aos="fade-up" data-aos-delay="100">
+          <div class="testimonial-rating">
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+          </div>
+          <p class="testimonial-text">"I tried their granola at a tasting event and it was absolutely incredible! The perfect blend of crunchy and sweet. Can't wait for the launch!"</p>
+          <div class="testimonial-author">
+            <div class="author-avatar">S</div>
+            <div class="author-info">
+              <h4>Sarah Johnson</h4>
+              <span>Food Blogger</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="testimonial-card" data-aos="fade-up" data-aos-delay="200">
+          <div class="testimonial-rating">
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+          </div>
+          <p class="testimonial-text">"Finally, a brand that cares about quality ingredients! HAVE IT is going to revolutionize the healthy snack market. I'm already hooked!"</p>
+          <div class="testimonial-author">
+            <div class="author-avatar">M</div>
+            <div class="author-info">
+              <h4>Michael Chen</h4>
+              <span>Fitness Enthusiast</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="testimonial-card" data-aos="fade-up" data-aos-delay="300">
+          <div class="testimonial-rating">
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+          </div>
+          <p class="testimonial-text">"The attention to detail in every bite is amazing. You can really taste the passion and quality. This is going to be huge!"</p>
+          <div class="testimonial-author">
+            <div class="author-avatar">E</div>
+            <div class="author-info">
+              <h4>Emily Rodriguez</h4>
+              <span>Nutritionist</span>
+            </div>
+          </div>
         </div>
       </div>
     </section>
@@ -285,6 +409,66 @@
       </div>
     </section>
 
+    <!-- FAQ Section -->
+    <section class="faq-section" id="faq">
+      <div class="section-title" data-aos="fade-up">
+        <h2>Frequently Asked <span>Questions</span></h2>
+        <p>Everything you need to know</p>
+      </div>
+
+      <div class="faq-container">
+        <div class="faq-item" data-aos="fade-up" data-aos-delay="100">
+          <div class="faq-question">
+            <h3>When will HAVE IT launch?</h3>
+            <i class="fas fa-chevron-down"></i>
+          </div>
+          <div class="faq-answer">
+            <p>We're launching on April 30, 2026! Subscribe to our newsletter to get notified when we go live and receive exclusive early-bird offers.</p>
+          </div>
+        </div>
+
+        <div class="faq-item" data-aos="fade-up" data-aos-delay="200">
+          <div class="faq-question">
+            <h3>What kind of food do you offer?</h3>
+            <i class="fas fa-chevron-down"></i>
+          </div>
+          <div class="faq-answer">
+            <p>We specialize in premium, handcrafted food products made with the finest ingredients. Our initial launch will feature artisanal granola and healthy snacks, with more exciting products coming soon!</p>
+          </div>
+        </div>
+
+        <div class="faq-item" data-aos="fade-up" data-aos-delay="300">
+          <div class="faq-question">
+            <h3>Do you offer delivery?</h3>
+            <i class="fas fa-chevron-down"></i>
+          </div>
+          <div class="faq-answer">
+            <p>Yes! We offer fast and reliable delivery to your doorstep. Free shipping on orders above a certain amount. Delivery areas and details will be announced at launch.</p>
+          </div>
+        </div>
+
+        <div class="faq-item" data-aos="fade-up" data-aos-delay="400">
+          <div class="faq-question">
+            <h3>Are your products organic/healthy?</h3>
+            <i class="fas fa-chevron-down"></i>
+          </div>
+          <div class="faq-answer">
+            <p>Absolutely! We use only fresh, high-quality ingredients with no artificial preservatives. Our products are crafted with your health and taste buds in mind.</p>
+          </div>
+        </div>
+
+        <div class="faq-item" data-aos="fade-up" data-aos-delay="500">
+          <div class="faq-question">
+            <h3>How can I stay updated?</h3>
+            <i class="fas fa-chevron-down"></i>
+          </div>
+          <div class="faq-answer">
+            <p>Subscribe to our newsletter below and follow us on Instagram @haveitofficial for behind-the-scenes content, product teasers, and launch updates!</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- Social Feed Section -->
     <section class="social-feed" data-aos="fade-up">
       <div class="section-title">
@@ -304,14 +488,48 @@
       </div>
     </section>
 
+    <!-- Contact Section -->
+    <section class="contact-section" id="contact">
+      <div class="section-title" data-aos="fade-up">
+        <h2>Get in <span>Touch</span></h2>
+        <p>Have questions? We'd love to hear from you</p>
+      </div>
+
+      <div class="contact-wrapper" data-aos="zoom-in">
+        <form class="contact-form" id="contactForm" action="https://formspree.io/f/YOUR_CONTACT_FORM_ID" method="POST">
+          <div class="form-row">
+            <div class="form-group">
+              <input type="text" name="name" class="form-input" placeholder="Your Name" required>
+            </div>
+            <div class="form-group">
+              <input type="email" name="email" class="form-input" placeholder="Your Email" required>
+            </div>
+          </div>
+          <div class="form-group">
+            <input type="text" name="subject" class="form-input" placeholder="Subject" required>
+          </div>
+          <div class="form-group">
+            <textarea name="message" class="form-textarea" placeholder="Your Message" rows="5" required></textarea>
+          </div>
+          <input type="hidden" name="_subject" value="New Contact Form Submission - HAVE IT">
+          <button type="submit" class="btn btn-primary contact-submit-btn">
+            Send Message <i class="fas fa-paper-plane"></i>
+          </button>
+        </form>
+      </div>
+    </section>
+
     <!-- Newsletter Section -->
     <section class="newsletter-section" id="newsletter">
       <div class="newsletter-wrapper" data-aos="zoom-in">
         <h3 data-aos="fade-up">Be the First to Know</h3>
         <p data-aos="fade-up" data-aos-delay="100">Get exclusive updates and early access</p>
 
-        <form class="newsletter-form" id="newsletterForm" data-aos="fade-up" data-aos-delay="200">
-          <input type="email" class="newsletter-input" placeholder="Enter your email" required>
+        <form class="newsletter-form" id="newsletterForm" data-aos="fade-up" data-aos-delay="200"
+              action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+          <input type="email" name="email" class="newsletter-input" placeholder="Enter your email" required>
+          <input type="hidden" name="_subject" value="New Newsletter Subscription - HAVE IT">
+          <input type="hidden" name="_next" value="https://haveitofficial.com/?subscribed=true">
           <button type="submit" class="newsletter-btn">
             Subscribe <i class="fas fa-paper-plane"></i>
           </button>
@@ -340,6 +558,21 @@
   <button id="backToTop" class="back-to-top" aria-label="Back to top">
     <i class="fas fa-arrow-up"></i>
   </button>
+
+  <!-- Lightbox Modal -->
+  <div class="lightbox" id="lightbox">
+    <button class="lightbox-close" id="lightboxClose" aria-label="Close lightbox">
+      <i class="fas fa-times"></i>
+    </button>
+    <button class="lightbox-prev" id="lightboxPrev" aria-label="Previous image">
+      <i class="fas fa-chevron-left"></i>
+    </button>
+    <button class="lightbox-next" id="lightboxNext" aria-label="Next image">
+      <i class="fas fa-chevron-right"></i>
+    </button>
+    <img src="" alt="Gallery image" id="lightboxImage" />
+    <div class="lightbox-counter" id="lightboxCounter">1 / 4</div>
+  </div>
 
   <!-- Cookie Consent -->
   <div class="cookie-consent" id="cookieConsent">

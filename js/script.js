@@ -32,9 +32,8 @@ navLinksItems.forEach(link => {
 
 // Countdown Timer
 function updateCountdown() {
-    const launchDate = new Date();
-    launchDate.setDate(launchDate.getDate() + 30);
-    launchDate.setHours(0, 0, 0, 0);
+    // Set your fixed launch date here (Year, Month-1, Day, Hour, Minute, Second)
+    const launchDate = new Date(2026, 3, 30, 0, 0, 0); // April 30, 2026
 
     function updateTimer() {
         const now = new Date().getTime();
@@ -75,24 +74,6 @@ function notifyMe() {
 
 function learnMore() {
     document.getElementById('features').scrollIntoView({ behavior: 'smooth' });
-}
-
-// Newsletter subscription with localStorage
-function subscribeNewsletter(email) {
-    // Save to localStorage
-    let subscribers = JSON.parse(localStorage.getItem('subscribers') || '[]');
-    if (!subscribers.includes(email)) {
-        subscribers.push(email);
-        localStorage.setItem('subscribers', JSON.stringify(subscribers));
-        alert(`Thanks! You're now on our waitlist! 🎉 We'll notify you at ${email}`);
-
-        // Optional: track subscription
-        if (typeof gtag !== 'undefined') {
-            gtag('event', 'newsletter_signup');
-        }
-    } else {
-        alert('You\'re already subscribed! Thanks for your interest 😊');
-    }
 }
 
 // Share functions
@@ -160,16 +141,52 @@ document.getElementById('notifyBtn')?.addEventListener('click', notifyMe);
 document.getElementById('learnMoreBtn')?.addEventListener('click', learnMore);
 
 // Newsletter form
-document.getElementById('newsletterForm')?.addEventListener('submit', function (e) {
+document.getElementById('newsletterForm')?.addEventListener('submit', async function (e) {
     e.preventDefault();
-    const emailInput = document.querySelector('.newsletter-input');
+    const form = e.target;
+    const emailInput = form.querySelector('.newsletter-input');
+    const submitBtn = form.querySelector('.newsletter-btn');
     const email = emailInput.value.trim();
 
-    if (email && isValidEmail(email)) {
-        subscribeNewsletter(email);
-        emailInput.value = '';
-    } else {
+    if (!email || !isValidEmail(email)) {
         alert('Please enter a valid email address');
+        return;
+    }
+
+    // Show loading state
+    const originalText = submitBtn.innerHTML;
+    submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Subscribing...';
+    submitBtn.disabled = true;
+
+    try {
+        const response = await fetch(form.action, {
+            method: 'POST',
+            body: new FormData(form),
+            headers: {
+                'Accept': 'application/json'
+            }
+        });
+
+        if (response.ok) {
+            alert(`Thanks! You're now on our waitlist! 🎉 We'll notify you at ${email}`);
+            emailInput.value = '';
+
+            // Track subscription
+            if (typeof gtag !== 'undefined') {
+                gtag('event', 'newsletter_signup', { 'event_category': 'engagement' });
+            }
+            if (typeof fbq !== 'undefined') {
+                fbq('track', 'Lead');
+            }
+        } else {
+            throw new Error('Subscription failed');
+        }
+    } catch (error) {
+        alert('Oops! Something went wrong. Please try again later.');
+        console.error('Newsletter subscription error:', error);
+    } finally {
+        submitBtn.innerHTML = originalText;
+        submitBtn.disabled = false;
     }
 });
 
@@ -178,6 +195,148 @@ function isValidEmail(email) {
     const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return re.test(email);
 }
+
+// Contact form
+document.getElementById('contactForm')?.addEventListener('submit', async function (e) {
+    e.preventDefault();
+    const form = e.target;
+    const submitBtn = form.querySelector('.contact-submit-btn');
+    const formData = new FormData(form);
+
+    // Show loading state
+    const originalText = submitBtn.innerHTML;
+    submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
+    submitBtn.disabled = true;
+
+    try {
+        const response = await fetch(form.action, {
+            method: 'POST',
+            body: formData,
+            headers: {
+                'Accept': 'application/json'
+            }
+        });
+
+        if (response.ok) {
+            alert('Thanks for your message! We\'ll get back to you soon. 🎉');
+            form.reset();
+
+            // Track form submission
+            if (typeof gtag !== 'undefined') {
+                gtag('event', 'contact_form_submit', { 'event_category': 'engagement' });
+            }
+            if (typeof fbq !== 'undefined') {
+                fbq('track', 'Contact');
+            }
+        } else {
+            throw new Error('Submission failed');
+        }
+    } catch (error) {
+        alert('Oops! Something went wrong. Please try again later.');
+        console.error('Contact form submission error:', error);
+    } finally {
+        submitBtn.innerHTML = originalText;
+        submitBtn.disabled = false;
+    }
+});
+
+// Gallery Lightbox
+const lightbox = document.getElementById('lightbox');
+const lightboxImage = document.getElementById('lightboxImage');
+const lightboxCounter = document.getElementById('lightboxCounter');
+const lightboxClose = document.getElementById('lightboxClose');
+const lightboxPrev = document.getElementById('lightboxPrev');
+const lightboxNext = document.getElementById('lightboxNext');
+let currentImageIndex = 0;
+let galleryImages = [];
+
+// Initialize gallery
+function initGallery() {
+    const galleryItems = document.querySelectorAll('.gallery-item img');
+    galleryImages = Array.from(galleryItems).map(img => img.src);
+
+    galleryItems.forEach((img, index) => {
+        img.parentElement.addEventListener('click', () => {
+            openLightbox(index);
+        });
+    });
+}
+
+function openLightbox(index) {
+    currentImageIndex = index;
+    updateLightboxImage();
+    lightbox.classList.add('active');
+    document.body.style.overflow = 'hidden';
+}
+
+function closeLightbox() {
+    lightbox.classList.remove('active');
+    document.body.style.overflow = '';
+}
+
+function updateLightboxImage() {
+    lightboxImage.src = galleryImages[currentImageIndex];
+    lightboxCounter.textContent = `${currentImageIndex + 1} / ${galleryImages.length}`;
+}
+
+function showPrevImage() {
+    currentImageIndex = (currentImageIndex - 1 + galleryImages.length) % galleryImages.length;
+    updateLightboxImage();
+}
+
+function showNextImage() {
+    currentImageIndex = (currentImageIndex + 1) % galleryImages.length;
+    updateLightboxImage();
+}
+
+// Event listeners
+if (lightboxClose) {
+    lightboxClose.addEventListener('click', closeLightbox);
+}
+
+if (lightboxPrev) {
+    lightboxPrev.addEventListener('click', showPrevImage);
+}
+
+if (lightboxNext) {
+    lightboxNext.addEventListener('click', showNextImage);
+}
+
+// Close on background click
+if (lightbox) {
+    lightbox.addEventListener('click', (e) => {
+        if (e.target === lightbox) {
+            closeLightbox();
+        }
+    });
+}
+
+// Keyboard navigation
+document.addEventListener('keydown', (e) => {
+    if (!lightbox.classList.contains('active')) return;
+
+    if (e.key === 'Escape') closeLightbox();
+    if (e.key === 'ArrowLeft') showPrevImage();
+    if (e.key === 'ArrowRight') showNextImage();
+});
+
+// FAQ Accordion
+document.querySelectorAll('.faq-question').forEach(question => {
+    question.addEventListener('click', () => {
+        const faqItem = question.parentElement;
+        const isActive = faqItem.classList.contains('active');
+
+        // Close all FAQ items
+        document.querySelectorAll('.faq-item').forEach(item => {
+            item.classList.remove('active');
+        });
+
+        // Toggle current item
+        if (!isActive) {
+            faqItem.classList.add('active');
+        }
+    });
+});
 
 // Close menu when clicking outside
 document.addEventListener('click', function (event) {
@@ -218,7 +377,7 @@ window.addEventListener('load', function () {
         if (loader) {
             loader.classList.add('fade-out');
         }
-    }, 2000);
+    }, 800);
 
     // Initialize AOS
     if (typeof AOS !== 'undefined') {
@@ -233,6 +392,9 @@ window.addEventListener('load', function () {
 
     // Initialize countdown
     updateCountdown();
+
+    // Initialize gallery lightbox
+    initGallery();
 
     // Show cookie consent
     showCookieConsent();
