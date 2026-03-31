@@ -175,9 +175,6 @@ document.getElementById('newsletterForm')?.addEventListener('submit', async func
             if (typeof gtag !== 'undefined') {
                 gtag('event', 'newsletter_signup', { 'event_category': 'engagement' });
             }
-            if (typeof fbq !== 'undefined') {
-                fbq('track', 'Lead');
-            }
         } else {
             throw new Error('Subscription failed');
         }
@@ -224,9 +221,6 @@ document.getElementById('contactForm')?.addEventListener('submit', async functio
             // Track form submission
             if (typeof gtag !== 'undefined') {
                 gtag('event', 'contact_form_submit', { 'event_category': 'engagement' });
-            }
-            if (typeof fbq !== 'undefined') {
-                fbq('track', 'Contact');
             }
         } else {
             throw new Error('Submission failed');
