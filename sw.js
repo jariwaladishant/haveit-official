@@ -1,10 +1,9 @@
-const CACHE_NAME = 'have-it-v2';
+const CACHE_NAME = 'have-it-v3';
 const urlsToCache = [
   '/',
   '/index.html',
   '/css/style.css',
   '/js/script.js',
-  '/images/have-it-back.png',
   '/manifest.json',
   'https://fonts.googleapis.com/css2?family=Luckiest+Guy&family=Poppins:wght@300;400;500;600;700;800&display=swap',
   'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css',
